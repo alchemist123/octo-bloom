@@ -27,7 +27,7 @@ INSERT INTO users (email, username) VALUES
 ON CONFLICT DO NOTHING;
 
 -- Initialize bloom filter for the users table email column
-SELECT octo_bloom_init('users'::regclass, 'email', 10000, 0.01);
+SELECT octo_bloom_init('users'::regclass, 'email', 2, 0.01);
 
 -- Create another sample table for more testing
 CREATE TABLE IF NOT EXISTS products (
@@ -53,7 +53,7 @@ INSERT INTO products (name, sku, price) VALUES
 ON CONFLICT DO NOTHING;
 
 -- Initialize bloom filter for the products table sku column
-SELECT octo_bloom_init('products'::regclass, 'sku', 10000, 0.01);
+SELECT octo_bloom_init('products'::regclass, 'sku', 2, 0.01);
 
 -- Grant permissions
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO octo_user;
