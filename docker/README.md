@@ -356,4 +356,13 @@ Both tables come pre-populated with sample data and initialized bloom filters.
 3. **Integrate**: Use the extension in your applications
 4. **Customize**: Modify false positive rates and expected counts for your use case
 
-Happy filtering! 🌸
+---
+
+If you find this project helpful and would like to support its development, consider buying me a coffee:
+
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/amal_vs)
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+

@@ -492,6 +492,16 @@ This project is licensed under the PostgreSQL License - see the [LICENSE](LICENS
 
 ---
 
+If you find this project helpful and would like to support its development, consider buying me a coffee:
+
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/amal_vs)
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
 **Octo-Bloom**: Bringing high-performance probabilistic data structures to PostgreSQL 🚀</contents>
 </xai:function_call">The README.md file has been successfully created for the octo-bloom PostgreSQL extension project. The file provides comprehensive documentation covering:
 
