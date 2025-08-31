@@ -4,11 +4,11 @@
 **Version:** 1.0.0  
 **License:** PostgreSQL License  
 
-## 🎉 Initial Release
+##  Initial Release
 
 We're excited to announce the first stable release of **Octo-Bloom**, a high-performance PostgreSQL extension that provides efficient bloom filter functionality for database applications requiring fast membership testing with minimal memory footprint.
 
-## 🚀 What's New in v1.0.0
+## 🚀What's New in v1.0.0
 
 ### Core Features
 
@@ -17,12 +17,12 @@ We're excited to announce the first stable release of **Octo-Bloom**, a high-per
 - **99%+ performance improvement** for non-existent data validation scenarios
 - Perfect for user registration, product validation, spam detection, and more
 
-#### 🏗️ Robust Architecture
+#### Robust Architecture
 - **Shared Memory Implementation**: Optimal performance with persistent storage across PostgreSQL sessions
 - **Thread-Safe Design**: Built for concurrent access patterns in production environments
 - **C++17 Core Engine**: High-performance implementation with modern C++ standards
 
-#### 🔧 Easy Integration
+#### Easy Integration
 - **Simple SQL Interface**: Standard PostgreSQL function calls
 - **Drop-in Replacement**: Minimal code changes required for existing applications
 - **Configurable Parameters**: Customizable false positive rates and memory usage
@@ -69,7 +69,7 @@ docker build -t octo-bloom .
 docker run -d --name postgres-octo octo-bloom
 ```
 
-## 🎯 Key Use Cases
+##  Key Use Cases
 
 ### Performance Scenarios Addressed
 - **User Registration**: Instant email/username availability checks
@@ -86,7 +86,7 @@ docker run -d --name postgres-octo octo-bloom
 | Product SKU Check | 80ms | 1μs + 80ms (if exists) | **99%+ faster** |
 | Spam Detection | 200ms | 1μs + 200ms (if spam) | **99%+ faster** |
 
-## 📚 API Reference
+##  API Reference
 
 ### Core Functions
 
@@ -213,6 +213,3 @@ make && sudo make install
 
 ---
 
-For detailed installation instructions and usage examples, see our [README.md](README.md).
-
-**Happy filtering! 🎯**
