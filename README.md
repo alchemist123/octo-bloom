@@ -407,7 +407,17 @@ This project is licensed under the PostgreSQL License - see the [LICENSE](LICENS
 
 ---
 
-**Octo-Bloom**: Bringing high-performance probabilistic data structures to PostgreSQL 
+If you find this project helpful and would like to support its development, consider buying me a coffee:
+
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/amal_vs)
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+**Octo-Bloom**: Bringing high-performance probabilistic data structures to PostgreSQL 🚀 
 
 ## Key Sections Included:
 
