@@ -14,7 +14,6 @@ OctoBloomFilter::OctoBloomFilter(uint64_t expected_count, double false_positive_
     : expected_count_(expected_count),
       false_positive_rate_(false_positive_rate) {
     
-    // Parameters should be validated before calling constructor
 
     // Calculate optimal parameters
     bit_array_size_ = static_cast<size_t>(
