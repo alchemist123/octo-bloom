@@ -407,8 +407,7 @@ This project is licensed under the PostgreSQL License - see the [LICENSE](LICENS
 
 ---
 
-**Octo-Bloom**: Bringing high-performance probabilistic data structures to PostgreSQL 🚀</contents>
-</xai:function_call">The README.md file has been successfully created for the octo-bloom PostgreSQL extension project. The file provides comprehensive documentation covering:
+**Octo-Bloom**: Bringing high-performance probabilistic data structures to PostgreSQL 
 
 ## Key Sections Included:
 
@@ -429,6 +428,3 @@ This project is licensed under the PostgreSQL License - see the [LICENSE](LICENS
 - **API**: Complete function reference with parameters and return values
 - **Integration**: SQL examples, application code integration, and best practices
 
-The README provides both high-level understanding for users and technical depth for developers, making it suitable for the project's documentation needs. The file follows standard open-source project documentation practices with proper formatting, badges, and comprehensive examples. 
-
-Would you like me to modify any specific sections or add additional information to the README?
