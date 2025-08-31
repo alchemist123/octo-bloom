@@ -80,9 +80,19 @@ bool register_bloom_filter(Oid table_oid, int16_t attnum,
         bloom_shared_state->bloom_registry, key, HASH_ENTER, &found);
 
     if (found) {
-        // Filter already exists
+        // Filter already exists, update it instead
+        if (entry->filter) {
+            entry->filter->~OctoBloomFilter();
+            pfree(entry->filter);
+        }
+        entry->filter = (OctoBloomFilter*)palloc(sizeof(OctoBloomFilter));
+        new (entry->filter) OctoBloomFilter(expected_count, false_positive_rate);
+        entry->expected_count = expected_count;
+        entry->false_positive_rate = false_positive_rate;
+        entry->current_count = 0;
+        entry->is_valid = true;
         // LWLockRelease(bloom_shared_state->registry_lock); // TODO: Implement proper locking
-        return false;
+        return true;
     }
 
     // Initialize new entry

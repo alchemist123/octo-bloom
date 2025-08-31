@@ -32,6 +32,19 @@ Datum octo_bloom_init(PG_FUNCTION_ARGS) {
     uint64_t expected_count = PG_GETARG_INT64(2);
     double false_positive_rate = PG_GETARG_FLOAT8(3);
     
+    // Validate parameters
+    if (expected_count == 0) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("expected_count must be greater than zero")));
+    }
+    
+    if (false_positive_rate <= 0 || false_positive_rate >= 1) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("false_positive_rate must be between 0 and 1")));
+    }
+    
     // Get attribute number from column name
     char* col_name = text_to_cstring(column_name);
     int16_t attnum = get_attnum(table_oid, col_name);
@@ -46,7 +59,7 @@ Datum octo_bloom_init(PG_FUNCTION_ARGS) {
     if (!register_bloom_filter(table_oid, attnum, expected_count, false_positive_rate)) {
         ereport(ERROR,
                 (errcode(ERRCODE_OUT_OF_MEMORY),
-                 errmsg("failed to register bloom filter: out of shared memory")));
+                 errmsg("failed to register bloom filter: out of shared memory or filter already exists")));
     }
     
     PG_RETURN_VOID();
@@ -105,6 +118,13 @@ Datum octo_bloom_exists(PG_FUNCTION_ARGS) {
     char* col_name = text_to_cstring(column_name);
     char* table_name = get_rel_name(table_oid);
     
+    // Connect to SPI
+    if (SPI_connect() != SPI_OK_CONNECT) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INTERNAL_ERROR),
+                 errmsg("SPI_connect failed")));
+    }
+    
     StringInfoData query;
     initStringInfo(&query);
     appendStringInfo(&query, "SELECT 1 FROM %s WHERE %s = $1 LIMIT 1",
@@ -116,6 +136,7 @@ Datum octo_bloom_exists(PG_FUNCTION_ARGS) {
     
     SPIPlanPtr plan = SPI_prepare(query.data, 1, param_types);
     if (plan == NULL) {
+        SPI_finish();
         ereport(ERROR,
                 (errcode(ERRCODE_INTERNAL_ERROR),
                  errmsg("SPI_prepare failed")));
@@ -129,6 +150,7 @@ Datum octo_bloom_exists(PG_FUNCTION_ARGS) {
     
     SPI_freeplan(plan);
     pfree(query.data);
+    SPI_finish();
     
     PG_RETURN_BOOL(exists);
 }
@@ -136,8 +158,7 @@ Datum octo_bloom_exists(PG_FUNCTION_ARGS) {
 // Other function implementations would follow similar patterns...
 
 void _PG_init(void) {
-    init_shared_memory();
-    // Register trigger functions and other initialization
+    // Extension initialization - shared memory will be initialized on first use
 }
 
 void _PG_fini(void) {

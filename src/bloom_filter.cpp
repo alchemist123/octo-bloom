@@ -14,17 +14,7 @@ OctoBloomFilter::OctoBloomFilter(uint64_t expected_count, double false_positive_
     : expected_count_(expected_count),
       false_positive_rate_(false_positive_rate) {
     
-    if (expected_count == 0) {
-        ereport(ERROR,
-                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
-                 errmsg("Expected count must be greater than zero")));
-    }
-    
-    if (false_positive_rate <= 0 || false_positive_rate >= 1) {
-        ereport(ERROR,
-                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
-                 errmsg("False positive rate must be between 0 and 1")));
-    }
+    // Parameters should be validated before calling constructor
 
     // Calculate optimal parameters
     bit_array_size_ = static_cast<size_t>(
