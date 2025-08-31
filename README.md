@@ -490,24 +490,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-**Octo-Bloom**: Bringing high-performance probabilistic data structures to PostgreSQL 🚀 
-
-## Key Sections Included:
-
-1. **Project Overview** - Clear description of what Octo-Bloom is and its benefits
-2. **Architecture** - Detailed system architecture with component explanations
-3. **Algorithms** - Technical explanation of bloom filter algorithms, double hashing, and memory optimization
-4. **Installation** - Complete installation instructions for different scenarios
-5. **Usage** - Practical examples from basic to advanced usage
-6. **API Reference** - Detailed documentation of all functions
-7. **Performance** - Benchmarks, memory usage examples, and performance comparisons
-8. **Contributing** - Development setup and contribution guidelines
-
-## Technical Details Covered:
-
-- **Architecture**: System components, data flow, and integration points
-- **Algorithms**: Bloom filter fundamentals, double hashing implementation, memory optimization
-- **Performance**: Time/space complexity, benchmarks, and optimization strategies
-- **API**: Complete function reference with parameters and return values
-- **Integration**: SQL examples, application code integration, and best practices
-
