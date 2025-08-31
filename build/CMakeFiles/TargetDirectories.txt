@@ -1,0 +1,7 @@
+/Users/amalvs/Documents/projects/octo-bloom/build/CMakeFiles/octo_bloom.dir
+/Users/amalvs/Documents/projects/octo-bloom/build/CMakeFiles/edit_cache.dir
+/Users/amalvs/Documents/projects/octo-bloom/build/CMakeFiles/rebuild_cache.dir
+/Users/amalvs/Documents/projects/octo-bloom/build/CMakeFiles/list_install_components.dir
+/Users/amalvs/Documents/projects/octo-bloom/build/CMakeFiles/install.dir
+/Users/amalvs/Documents/projects/octo-bloom/build/CMakeFiles/install/local.dir
+/Users/amalvs/Documents/projects/octo-bloom/build/CMakeFiles/install/strip.dir

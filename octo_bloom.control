@@ -1,0 +1,7 @@
+# Octo-Bloom extension control file
+comment = 'High-performance Bloom filter extension for PostgreSQL'
+default_version = '1.0'
+module_pathname = '$libdir/octo_bloom'
+relocatable = false
+superuser = true
+schema = public
