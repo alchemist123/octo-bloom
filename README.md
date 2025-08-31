@@ -83,9 +83,9 @@ A Bloom filter is a space-efficient probabilistic data structure that answers th
 > **"Is this element definitely NOT in the set, or might it be in the set?"**
 
 **Key Properties:**
-- ✅ **No false negatives**: If the filter says "no", the element is definitely not in the set
-- ❌ **Possible false positives**: If the filter says "yes", the element might be in the set
-- 🎯 **Configurable trade-offs**: Memory usage vs. false positive probability
+-  **No false negatives**: If the filter says "no", the element is definitely not in the set
+- ❌**Possible false positives**: If the filter says "yes", the element might be in the set
+-  **Configurable trade-offs**: Memory usage vs. false positive probability
 
 ### Double Hashing Implementation
 
@@ -150,12 +150,97 @@ sudo cp sql/octo_bloom--1.0.sql /usr/share/postgresql/14/extension/
 sudo cp octo_bloom.control /usr/share/postgresql/14/extension/
 ```
 
-### Docker Installation
+### Docker Installation (Recommended for Testing)
+
+The easiest way to get started with Octo-Bloom is using Docker Compose, which sets up PostgreSQL with the extension and pgAdmin for easy testing.
+
+#### Quick Start with Docker Compose
 
 ```bash
-# Build with Docker
-docker build -t octo-bloom .
-docker run -d --name postgres-octo octo-bloom
+# Clone the repository
+git clone https://github.com/your-org/octo-bloom.git
+cd octo-bloom
+
+# Copy the example environment file (optional)
+cp docker.env.example .env
+
+# Start PostgreSQL with Octo-Bloom extension and pgAdmin
+docker-compose up -d
+
+# Check if services are running
+docker-compose ps
+```
+
+#### Services
+
+The Docker Compose setup provides:
+
+- **PostgreSQL 15** with Octo-Bloom extension pre-installed
+  - Host: `localhost:5432`
+  - Database: `octo_bloom_db`
+  - Username: `octo_user`
+  - Password: `octo_pass123`
+
+- **pgAdmin 4** for database administration
+  - URL: http://localhost:8080
+  - Email: `admin@octo-bloom.com`
+  - Password: `admin123`
+
+#### Sample Data
+
+The Docker setup automatically creates sample tables with test data:
+
+- `users` table with email bloom filter
+- `products` table with SKU bloom filter
+
+#### Testing the Extension
+
+Once the containers are running, you can test the extension:
+
+```bash
+# Connect to PostgreSQL
+docker exec -it octo-bloom-postgres psql -U octo_user -d octo_bloom_db
+
+# Test bloom filter functionality
+SELECT octo_bloom_might_contain('users'::regclass, 'email', 'alice@example.com');
+SELECT octo_bloom_exists('users'::regclass, 'email', 'nonexistent@example.com');
+```
+
+Or use pgAdmin at http://localhost:8080 with the credentials above.
+
+#### Environment Variables
+
+You can customize the setup by creating a `.env` file or modifying `docker.env.example`:
+
+```env
+# PostgreSQL Configuration
+POSTGRES_DB=octo_bloom_db
+POSTGRES_USER=octo_user
+POSTGRES_PASSWORD=octo_pass123
+POSTGRES_PORT=5432
+
+# pgAdmin Configuration
+PGADMIN_EMAIL=admin@octo-bloom.com
+PGADMIN_PASSWORD=admin123
+PGADMIN_PORT=8080
+```
+
+#### Manual Docker Build
+
+If you prefer to build manually:
+
+```bash
+# Build the Docker image
+docker build -f docker/Dockerfile -t octo-bloom .
+
+# Run PostgreSQL with the extension
+docker run -d \
+  --name postgres-octo \
+  -e POSTGRES_DB=testdb \
+  -e POSTGRES_USER=testuser \
+  -e POSTGRES_PASSWORD=testpass \
+  -p 5432:5432 \
+  octo-bloom
 ```
 
 ### PostgreSQL Configuration

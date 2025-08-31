@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Octo-Bloom PostgreSQL",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "octo_bloom_db",
+      "Username": "octo_user",
+      "PassFile": "/tmp/pgpassfile",
+      "SSLMode": "prefer"
+    }
+  }
+}

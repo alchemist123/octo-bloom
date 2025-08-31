@@ -4,15 +4,46 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    container_name: octo-bloom-postgres
     environment:
-      POSTGRES_DB: mydb
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: ${POSTGRES_DB:-octo_bloom_db}
+      POSTGRES_USER: ${POSTGRES_USER:-octo_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-octo_pass123}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/initdb.d:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-octo_user} -d ${POSTGRES_DB:-octo_bloom_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - octo-bloom-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: octo-bloom-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@octo-bloom.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin123}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "${PGADMIN_PORT:-8080}:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - octo-bloom-network
 
 volumes:
   postgres_data:
+  pgadmin_data:
+
+networks:
+  octo-bloom-network:
+    driver: bridge

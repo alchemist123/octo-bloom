@@ -2,9 +2,17 @@ cmake_minimum_required(VERSION 3.12)
 project(octo-bloom LANGUAGES C CXX)
 
 # Find PostgreSQL
-find_package(PostgreSQL REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(PostgreSQL REQUIRED libpq)
+
+# Get PostgreSQL configuration
+execute_process(COMMAND pg_config --includedir-server OUTPUT_VARIABLE PG_INCLUDEDIR_SERVER OUTPUT_STRIP_TRAILING_WHITESPACE)
+execute_process(COMMAND pg_config --pkglibdir OUTPUT_VARIABLE PG_PKGLIBDIR OUTPUT_STRIP_TRAILING_WHITESPACE)
+execute_process(COMMAND pg_config --sharedir OUTPUT_VARIABLE PG_SHAREDIR OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+# Include directories
 include_directories(${PostgreSQL_INCLUDE_DIRS})
-include_directories(${PostgreSQL_TYPE_INCLUDE_DIR})
+include_directories(${PG_INCLUDEDIR_SERVER})
 
 # Find OpenSSL for SHA256
 find_package(OpenSSL REQUIRED)
@@ -29,8 +37,6 @@ add_library(octo_bloom MODULE ${SOURCES})
 # Link PostgreSQL libraries
 target_link_libraries(octo_bloom
     ${PostgreSQL_LIBRARIES}
-    /opt/homebrew/lib/postgresql@14/libpgcommon.a
-    /opt/homebrew/lib/postgresql@14/libpgport.a
     OpenSSL::SSL
     OpenSSL::Crypto
 )
@@ -43,10 +49,10 @@ set_target_properties(octo_bloom PROPERTIES
 
 # Installation directives
 install(TARGETS octo_bloom 
-        DESTINATION ${PostgreSQL_PKGLIBDIR}/extension)
+        DESTINATION ${PG_PKGLIBDIR})
 
 install(FILES sql/octo_bloom--1.0.sql 
-        DESTINATION ${PostgreSQL_SHAREDIR}/extension)
+        DESTINATION ${PG_SHAREDIR}/extension)
 
 install(FILES octo_bloom.control 
-        DESTINATION ${PostgreSQL_SHAREDIR}/extension)
+        DESTINATION ${PG_SHAREDIR}/extension)
