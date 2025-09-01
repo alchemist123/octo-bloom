@@ -416,7 +416,7 @@ SELECT octo_bloom_init('logs', 'session_id', 1000000, 0.0001);
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/octo-bloom.git
+git clone https://github.com/alchemist123/octo-bloom.git
 cd octo-bloom
 
 # Build in development mode
